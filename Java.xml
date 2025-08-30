@@ -1,0 +1,346 @@
+<templateSet group="Java">
+  <template name="slfori" value="for(int $INDEX$ = 0; $INDEX$ &lt; $LIMIT$; ++$INDEX$) {&#10;  $END$&#10;}  //  for(int $INDEX$ = 0; $INDEX$ &lt; $LIMIT$; ++$INDEX$)" description="Create iteration loop" toReformat="true" toShortenFQNames="true">
+    <variable name="INDEX" expression="suggestIndexName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="LIMIT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slelse-if" value="else if($CONDITION$){&#10;$END$&#10;}  //  if ... else if($CONDITION)" description="Add else-if branch" toReformat="true" toShortenFQNames="false">
+    <variable name="CONDITION" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_ELSE_PLACE" value="true" />
+    </context>
+  </template>
+  <template name="slitar" value="for(int $INDEX$ = 0; $INDEX$ &lt; $ARRAY$.length; $INDEX$++) {&#10;  $ELEMENT_TYPE$ $VAR$ = $ARRAY$[$INDEX$];&#10;  $END$&#10;}  //  for(int $INDEX$ = 0; $INDEX$ &lt; $ARRAY$.length; $INDEX$++)" description="Iterate elements of array" toReformat="true" toShortenFQNames="true">
+    <variable name="INDEX" expression="suggestIndexName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ARRAY" expression="arrayVariable()" defaultValue="&quot;array&quot;" alwaysStopAt="true" />
+    <variable name="ELEMENT_TYPE" expression="componentTypeOf(ARRAY)" defaultValue="" alwaysStopAt="false" />
+    <variable name="VAR" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slpsvmain" value="public static void main(String[] my_args){&#10;  $END$&#10;}  //  public static void main(String[] my_args)" description="main() method declaration" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_DECLARATION" value="true" />
+    </context>
+  </template>
+  <template name="slmain" value="public static void main(String[] myArgs){&#10;  $END$&#10;}  //  public static void main(String[] myArgs)" description="main() method declaration" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_DECLARATION" value="true" />
+    </context>
+  </template>
+  <template name="slifvarneqnull" value="if ($VAR$ != null) {&#10;    $END$&#10;}  //  if ($VAR$ != null)" description="Inserts 'if not null' statement" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slfi" value="final int $VAR$" description="final int" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="variableOfType(Type)" defaultValue="&quot;variable name&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slprivatemtd" value="private $RTYPE$ $NAME$($ARGS$) {&#10;    $RTYPE$ retVal = $END$;&#10;    &#10;    &#10;    return retVal;&#10;}  //  private $RTYPE$ $NAME$(...)" description="private method" toReformat="true" toShortenFQNames="true">
+    <variable name="RTYPE" expression="methodReturnType()" defaultValue="&quot;void&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="&quot;myFunction&quot;" alwaysStopAt="true" />
+    <variable name="ARGS" expression="methodParameters()" defaultValue="&quot;my_type  my_args&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slpublicmethod" value="public $RTYPE$ $NAME$($ARGS$) {&#10;    $RTYPE$ retVal = $END$;&#10;&#10;&#10;    return retVal;&#10;}  //  public $RTYPE$ $NAME$(...)" description="public method" toReformat="true" toShortenFQNames="true">
+    <variable name="RTYPE" expression="methodReturnType()" defaultValue="&quot;void&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="&quot;myFunction&quot;" alwaysStopAt="true" />
+    <variable name="ARGS" expression="methodParameters()" defaultValue="&quot;my_type  my_args&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slprivatestaticmethod" value="private static $RTYPE$ $NAME$($ARGS$) {&#10;    $RTYPE$ retVal = $END$;&#10;&#10;&#10;    return retVal;&#10;}  //  private static $RTYPE$ $NAME$(...)" description="private static method" toReformat="true" toShortenFQNames="true">
+    <variable name="RTYPE" expression="methodReturnType()" defaultValue="&quot;void&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="&quot;myFunction&quot;" alwaysStopAt="true" />
+    <variable name="ARGS" expression="methodParameters()" defaultValue="&quot;my_type  my_args&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slpublicstaticmethod" value="public static $RTYPE$ $NAME$($ARGS$) {&#10;    $RTYPE$ retVal = $END$;&#10;&#10;&#10;    return retVal;       &#10;}  //  public static $RTYPE$ $NAME$(...)" description="public static method" toReformat="true" toShortenFQNames="true">
+    <variable name="RTYPE" expression="methodReturnType()" defaultValue="&quot;void&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="&quot;myFunction&quot;" alwaysStopAt="true" />
+    <variable name="ARGS" expression="methodParameters()" defaultValue="&quot;my_type  my_args&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slprotectedstaticmethod" value="protected static $RTYPE$ $NAME$($ARGS$) {&#10;    $RTYPE$ retVal = $END$;&#10;&#10;&#10;    return retVal;&#10;}  //  protected static $RTYPE$ $NAME$(...)" description="protected static method" toReformat="true" toShortenFQNames="true">
+    <variable name="RTYPE" expression="methodReturnType()" defaultValue="&quot;void&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="&quot;myFunction&quot;" alwaysStopAt="true" />
+    <variable name="ARGS" expression="methodParameters()" defaultValue="&quot;my_type  my_args&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slfl" value="final long $VAR$" description="final long" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="variableOfType(Type)" defaultValue="&quot;variable name&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slfd" value="final double $VAR$" description="final double" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="variableOfType(Type)" defaultValue="&quot;variable name&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slifvareqval" value="if ($VAR$ == $VAL$) {&#10;    $END$&#10;}  //  if ($VAR$ == $VAL$)" description="Insert &quot;if (var == expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="&quot;VAL&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slifvarnenval" value="if ($VAR$ != $VAL$) {&#10;    $END$&#10;}  //  if ($VAR$ != $VAL$)" description="Insert &quot;if (var != expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="&quot;VAL&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slprintln" value="System.out.println(&quot;$END$&quot;);" description="Prints a string to System.out with println" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slprintf" value="System.out.printf(&quot;$END$&quot;);" description="Prints a string to System.out with printf" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slforrg" value="for ($ELEMENT_TYPE$ $VAR$ : $COLLECTION$) {&#10;  $END$&#10;}  //  for ($ELEMENT_TYPE$ $VAR$ : $COLLECTION$)&#10;" description="Iterate Iterable or array - &quot;range for&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="ELEMENT_TYPE" expression="iterableComponentType(SELECTION)" defaultValue="&quot;java.lang.Object&quot;" alwaysStopAt="false" />
+    <variable name="VAR" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="COLLECTION" expression="arrayVariable()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slwhile-itit" value="while($ITER$.hasNext()){&#10;  $TYPE$ $VAR$ = $CAST$ $ITER$.next();&#10;  $END$&#10;}  //  while($ITER$.hasNext())" description="Iterate java.util.Iterator" toReformat="true" toShortenFQNames="true">
+    <variable name="ITER" expression="variableOfType(&quot;java.util.Iterator&quot;)" defaultValue="&quot;iterator&quot;" alwaysStopAt="true" />
+    <variable name="TYPE" expression="rightSideType()" defaultValue="&quot;Object&quot;" alwaysStopAt="true" />
+    <variable name="VAR" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="CAST" expression="castToLeftSideType()" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slfor-itli" value="for (int $INDEX$ = 0; $INDEX$ &lt; $LIST$.size(); $INDEX$++) {&#10;  $ELEMENT_TYPE$ $VAR$ = $CAST$ $LIST$.get($INDEX$);&#10;  $END$&#10;}  //  for (int $INDEX$ = 0; $INDEX$ &lt; $LIST$.size(); $INDEX$++)" description="Iterate elements of java.util.List" toReformat="true" toShortenFQNames="true">
+    <variable name="INDEX" expression="suggestIndexName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="LIST" expression="variableOfType(&quot;java.util.List&quot;)" defaultValue="&quot;list&quot;" alwaysStopAt="true" />
+    <variable name="ELEMENT_TYPE" expression="guessElementType(LIST)" defaultValue="&quot;Object&quot;" alwaysStopAt="true" />
+    <variable name="VAR" expression="suggestVariableName()" defaultValue="&quot;o&quot;" alwaysStopAt="true" />
+    <variable name="CAST" expression="castToLeftSideType()" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slritar" value="for(int $INDEX$ = $ARRAY$.length - 1; $INDEX$ &gt;= 0; $INDEX$--) {&#10;  $ELEMENT_TYPE$ $VAR$ = $ARRAY$[$INDEX$];&#10;  $END$&#10;}  // for(int $INDEX$ = $ARRAY$.length - 1; $INDEX$ &gt;= 0; $INDEX$--)" description="Iterate elements of array in reverse order" toReformat="true" toShortenFQNames="true">
+    <variable name="INDEX" expression="suggestIndexName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ARRAY" expression="arrayVariable()" defaultValue="&quot;array&quot;" alwaysStopAt="true" />
+    <variable name="ELEMENT_TYPE" expression="componentTypeOf(ARRAY)" defaultValue="" alwaysStopAt="false" />
+    <variable name="VAR" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="sliter" value="for ($ELEMENT_TYPE$ $VAR$ : $ITERABLE_TYPE$) {&#10;  $END$&#10;}  //  for ($ELEMENT_TYPE$ $VAR$ : $ITERABLE_TYPE$)" description="Iterate Iterable or array" toReformat="true" toShortenFQNames="true">
+    <variable name="ITERABLE_TYPE" expression="iterableVariable()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ELEMENT_TYPE" expression="iterableComponentType(ITERABLE_TYPE)" defaultValue="&quot;java.lang.Object&quot;" alwaysStopAt="false" />
+    <variable name="VAR" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slclass" value="$ACCESS$ class $NAME$ {&#10;    $END$&#10;}  //  $ACCESS$ $NAME$" description="class template" toReformat="true" toShortenFQNames="true">
+    <variable name="ACCESS" expression="" defaultValue="&quot;public&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;class_name&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slclass-derived" value="$ACCESS$ class $NAME$ extends $BASE_CLASS$ {&#10;    $END$&#10;}  //  $ACCESS$ $NAME$" description="derived class template" toReformat="true" toShortenFQNames="true">
+    <variable name="ACCESS" expression="" defaultValue="&quot;public&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;class_name&quot;" alwaysStopAt="true" />
+    <variable name="BASE_CLASS" expression="" defaultValue="&quot;base_class&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slclass-final" value="final $ACCESS$ class $NAME$ {&#10;    $END$&#10;}  //  final $ACCESS$ $NAME$" description="final class template" toReformat="true" toShortenFQNames="true">
+    <variable name="ACCESS" expression="" defaultValue="&quot;public&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="className()" defaultValue="&quot;class_name&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slclass-derived-final" value="final $ACCESS$ class $NAME$ extends $BASE_CLASS$ {&#10;    $END$&#10;}  //  final $ACCESS$ class $NAME$ extends $BASE_CLASS$" description="derived class template" toReformat="true" toShortenFQNames="true">
+    <variable name="ACCESS" expression="" defaultValue="&quot;public&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="className()" defaultValue="&quot;class_name&quot;" alwaysStopAt="true" />
+    <variable name="BASE_CLASS" expression="" defaultValue="&quot;base_class&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slwhileloop" value="while ($PREDICATE$){&#10;  $END$&#10;}  //  while ($PREDICATE$)" description="Predicated while loop" toReformat="true" toShortenFQNames="true">
+    <variable name="PREDICATE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slsetmin" value="$VAR$ = Math.min($VAR$, $END$);" description="Sets lesser value to a variable" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="variableOfType(&quot;double&quot;)" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slgeti" value="public static $CLASS_NAME$ getInstance() {&#10;  return $VALUE$;&#10;} // public static $CLASS_NAME$ getInstance()" description="Inserts singleton method getInstance" toReformat="true" toShortenFQNames="true">
+    <variable name="CLASS_NAME" expression="className" defaultValue="" alwaysStopAt="false" />
+    <variable name="VALUE" expression="variableOfType(CLASS_NAME)" defaultValue="null" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_DECLARATION" value="true" />
+    </context>
+  </template>
+  <template name="slifvarltval" value="if ($VAR$ &lt; $VAL$) {&#10;    $END$&#10;}  //  if ($VAR$ &lt; $VAL$)" description="Insert &quot;if (var &lt; expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="&quot;VAL&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slifvarleval" value="if ($VAR$ &lt;= $VAL$) {&#10;    $END$&#10;}  //  if ($VAR$ &lt;= $VAL$)" description="Insert &quot;if (var &lt;= expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="&quot;VAL&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slifvargtval" value="if ($VAR$ &gt; $VAL$) {&#10;    $END$&#10;}  //  if ($VAR$ &gt; $VAL$)" description="Insert &quot;if (var &gt; expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="&quot;VAL&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slifvargeval" value="if ($VAR$ &gt;= $VAL$) {&#10;    $END$&#10;}  //  if ($VAR$ &gt;= $VAL$)" description="Insert &quot;if (var &gt;= expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="&quot;VAL&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slprotectedmethod" value="protected $RTYPE$ $NAME$($ARGS$) {&#10;    $RTYPE$ retVal = $END$;&#10;&#10;&#10;    return retVal;&#10;}  //  protected $RTYPE$ $NAME$(...)" description="protected method" toReformat="true" toShortenFQNames="true">
+    <variable name="RTYPE" expression="methodReturnType()" defaultValue="&quot;void&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="&quot;myFunction&quot;" alwaysStopAt="true" />
+    <variable name="ARGS" expression="methodParameters()" defaultValue="&quot;my_type  my_args&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="COMPLETION" value="false" />
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_CONSUMER" value="false" />
+      <option name="JAVA_ELSE_PLACE" value="false" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_STATEMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+    </context>
+  </template>
+  <template name="slifvar" value="if ($VAR$) {&#10;    $END$&#10;}  //  if ($VAR$)" description="Insert &quot;if (expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slifnotvar" value="if (!$VAR$) {&#10;    $END$&#10;}  //  if (!$VAR$)" description="Insert &quot;if (!expresson)&quot;" toReformat="true" toShortenFQNames="true">
+    <variable name="VAR" expression="suggestFirstVariableName(&quot;Object&quot;)" defaultValue="var" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="slult" value="// $ULT_DESCRIPTION$&#10;private static boolean $NAME$($ARGS$) {&#10;    boolean retVal = false;&#10;    $END$&#10;            &#10;    retVal = false;&#10;    return returnTestResult(&quot;$NAME$&quot;, retVal);&#10;}  //  private static boolean $NAME$(...)" description="Create a template for an ULT" toReformat="true" toShortenFQNames="true">
+    <variable name="ULT_DESCRIPTION" expression="" defaultValue="&quot;What are we testing: one sentence description&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="ARGS" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+  <template name="slreturnTestResult" value="private static boolean returnTestResult(String testLabel, boolean testVar) {&#10;    if (testVar) {&#10;        System.out.printf(&quot;%10s: PASS\n&quot;, testLabel);&#10;    }  else {&#10;        System.out.printf(&quot;%10s: FAIL\n&quot;, testLabel);&#10;    }  //  if (testVar)&#10;    return testVar;&#10;}  //  private static boolean returnTestResult(...)" description="ULT helper method" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_CODE" value="true" />
+    </context>
+  </template>
+</templateSet>

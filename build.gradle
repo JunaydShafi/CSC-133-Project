@@ -1,0 +1,102 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group = 'CSC133'
+version = '0.0-DEV'
+
+def VERBOSE_MODE = false
+
+def jomlVersion = "1.10.8"
+def lwjglVersion = "3.3.6"
+def lwjgl3_awtVersion = "0.1.8"
+def steamworks4jVersion = "1.9.0"
+def steamworks4j_serverVersion = "1.9.0"
+
+def os = org.gradle.internal.os.OperatingSystem.current()
+def lwjglNatives = {
+    if (os.isWindows()) return "natives-windows"
+    if (os.isMacOsX()) return "natives-macos"
+    if (os.isLinux()) return "natives-linux"
+}()
+
+def vmOptions = [
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+        '--enable-native-access=ALL-UNNAMED',
+        '--sun-misc-unsafe-memory-access=allow'
+]
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-Xlint:none']
+}
+
+
+tasks.withType(JavaExec) {
+    jvmArgs += vmOptions
+}
+
+dependencies {
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    implementation "org.lwjgl:lwjgl:$lwjglVersion"
+    implementation "org.lwjgl:lwjgl-glfw:$lwjglVersion"
+    implementation "org.lwjgl:lwjgl-opengl:$lwjglVersion"
+    implementation "org.lwjgl:lwjgl-stb:$lwjglVersion"
+    implementation 'org.joml:joml:1.10.5'
+
+    runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
+}
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'pkgCSC133.Driver'
+}
+
+if (VERBOSE_MODE) {
+    println "* * * * * * * * * * * * * * * * * * * * * * * * * * * *  *"
+    println "*  This message indicates that:                          *"
+    println "*  1. the build.gradle file has been ready by IntelliJ.  *"
+    println "*                                                        *"
+    println "*  2. if you're are on one of Linux, Windows or MacOS    *"
+    println "*     platoforms, then IntelliJ should have identified   *"
+    println "*     your platform and done the needed adjustments.     *"
+    println "*     It is reading your platform as:                    *"
+    println "                                                         *"
+    println "      Version: " + version + "   Platform: " + lwjglNatives
+    println "                                                         *"
+    println "*     If that is not correct, set \"lwjglNatives\" in      *"
+    println "*     build.gralde variable by hand.                     *"
+    println "*                                                        *"
+    println "*  3. If you are on MacOS, after Gradle/IntelliJ         *"
+    println "*     download the LWJGL & GLFW libraries, further work  *"
+    println "*     will likely be needed to make your OpenGL programs *"
+    println "*     work proplerly. Part of this is due to MacOS using *"
+    println "*     OpenGL simulated on top of native Metal API.       *"
+    println "*                                                        *"
+    println "*  4. If this was the first time this build.grale file   *"
+    println "*     was ready by IntelliJ should have downlaoded all   *"
+    println "*     needed dependencies listed in that file.           *"
+    println "*     - if everything went well with reading the file!   *"
+    println "*                                            - shankar   *"
+    println "*                                                        *"
+    println "* * * * * * * * * * * * * * * * * * * * * * * * * * * *  *"
+    println "If this is incorrect, you need to hand-tweak the lwjglNatives"
+    println "variable in the build.gradle file"
+
+}
+
