@@ -89,7 +89,7 @@ public class Driver {
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
-        glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+        glClearColor(0.043f, 0.380f, 0.588f, 1.0f);
         this.shader_program = glCreateProgram();
         int vs = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vs,
@@ -103,20 +103,36 @@ public class Driver {
         glShaderSource(fs,
                 "uniform vec3 color;" +
                         "void main(void) {" +
-                        " gl_FragColor = vec4(0.7f, 0.5f, 0.1f, 1.0f);" +
+                        " gl_FragColor = vec4(0.5f, 1.0f, 0.0f, 1.0f);" +
                         "}");
         glCompileShader(fs);
         glAttachShader(shader_program, fs);
         glLinkProgram(shader_program);
         glUseProgram(shader_program);
         vpMatLocation = glGetUniformLocation(shader_program, "viewProjMatrix");
-        return;
     } // void initOpenGL()
     void renderObjects() {
         int vbo = glGenBuffers();
         int ibo = glGenBuffers();
-        float[] vertices = {-20f, -20f, 20f, -20f, 20f, 20f, -20f, 20f};
+
+        final float RECT_WIDTH = 26.66f;   // full width of rectangle
+        final float RECT_HEIGHT = 40f;     // full height of rectangle
+        final int NUM_TRIANGLES = 2;       // 2 triangles form rectangle
+        final int VERTICES_PER_TRIANGLE = 3;
+        final int NUM_INDICES = NUM_TRIANGLES * VERTICES_PER_TRIANGLE; // 6
+
+        float halfWidth = RECT_WIDTH / 2;
+        float halfHeight = RECT_HEIGHT / 2;
+
+        float[] vertices = {
+                -halfWidth, -halfHeight,
+                halfWidth, -halfHeight,
+                halfWidth,  halfHeight,
+                -halfWidth,  halfHeight
+        };
+
         int[] indices = {0, 1, 2, 0, 2, 3};
+
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, (FloatBuffer) BufferUtils.
                 createFloatBuffer(vertices.length).
@@ -126,7 +142,8 @@ public class Driver {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, (IntBuffer) BufferUtils.
                 createIntBuffer(indices.length).
                 put(indices).flip(), GL_STATIC_DRAW);
-        glVertexPointer(2, GL_FLOAT, 0, 0L);
+        final int VERTEX_COMPONENTS = 2;
+        glVertexPointer(VERTEX_COMPONENTS, GL_FLOAT, 0, 0L);
         viewProjMatrix.setOrtho(-100, 100, -100, 100, 0, 10);
         glUniformMatrix4fv(vpMatLocation, false,
                 viewProjMatrix.get(myFloatBuffer));
@@ -137,7 +154,7 @@ public class Driver {
             glfwPollEvents();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0L);
+            glDrawElements(GL_TRIANGLES, NUM_INDICES, GL_UNSIGNED_INT, 0L);
             glfwSwapBuffers(window);
         }
     } // renderObjects
