@@ -19,8 +19,22 @@ public class Driver {
     GLFWKeyCallback keyCallback;
     GLFWFramebufferSizeCallback fbCallback;
     long window;
-    static int WIN_WIDTH = 1800, WIN_HEIGHT = 1200;
-    int WIN_POS_X = 30, WIN_POX_Y = 90;
+
+    private static  int WIN_WIDTH = 1800;
+    private static  int WIN_HEIGHT = 1200;
+    private static final int WIN_POS_X = 30;
+    private static final int WIN_POX_Y = 90;
+
+    private static final int MSAA_SAMPLES = 8;
+    private static final int VSYNC_INTERVAL = 1;
+
+    private static final float ORTHO_LEFT = -100f;
+    private static final float ORTHO_RIGHT = 100f;
+    private static final float ORTHO_BOTTOM = -100f;
+    private static final float ORTHO_TOP = 100f;
+    private static final float ORTHO_NEAR = 0f;
+    private static final float ORTHO_FAR = 10f;
+
     private static final int OGL_MATRIX_SIZE = 16;
     // call glCreateProgram() here - we have no gl-context here
     int shader_program;
@@ -51,7 +65,7 @@ public class Driver {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_SAMPLES, 8);
+        glfwWindowHint(GLFW_SAMPLES, MSAA_SAMPLES);
         window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "CSC 133", NULL, NULL);
         if (window == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
@@ -76,7 +90,6 @@ public class Driver {
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(window, WIN_POS_X, WIN_POX_Y);
         glfwMakeContextCurrent(window);
-        int VSYNC_INTERVAL = 1;
         glfwSwapInterval(VSYNC_INTERVAL);
         glfwShowWindow(window);
     } // private void initGLFWindow()
@@ -144,7 +157,7 @@ public class Driver {
                 put(indices).flip(), GL_STATIC_DRAW);
         final int VERTEX_COMPONENTS = 2;
         glVertexPointer(VERTEX_COMPONENTS, GL_FLOAT, 0, 0L);
-        viewProjMatrix.setOrtho(-100, 100, -100, 100, 0, 10);
+        viewProjMatrix.setOrtho(ORTHO_LEFT, ORTHO_RIGHT , ORTHO_BOTTOM , ORTHO_TOP , ORTHO_NEAR , ORTHO_FAR);
         glUniformMatrix4fv(vpMatLocation, false,
                 viewProjMatrix.get(myFloatBuffer));
         glUniform3f(renderColorLocation, 1.0f, 0.498f, 0.153f);
