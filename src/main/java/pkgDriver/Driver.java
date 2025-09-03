@@ -20,15 +20,16 @@ public class Driver {
     GLFWFramebufferSizeCallback fbCallback;
     long window;
 
-    private static  int WIN_WIDTH = 1800;
+    // window
+    private static  int WIN_WIDTH = 1800;// replacing the random number struct for vertecies and indexs
     private static  int WIN_HEIGHT = 1200;
     private static final int WIN_POS_X = 30;
     private static final int WIN_POX_Y = 90;
 
-    private static final int MSAA_SAMPLES = 8;
+    private static final int MSAA_SAMPLES = 8; // fixing magic numbers
     private static final int VSYNC_INTERVAL = 1;
 
-    private static final float ORTHO_LEFT = -100f;
+    private static final float ORTHO_LEFT = -100f; // all used for viewProjMatrix.setOrtho();
     private static final float ORTHO_RIGHT = 100f;
     private static final float ORTHO_BOTTOM = -100f;
     private static final float ORTHO_TOP = 100f;
@@ -37,6 +38,7 @@ public class Driver {
 
     private static final int OGL_MATRIX_SIZE = 16;
     // call glCreateProgram() here - we have no gl-context here
+
     int shader_program;
     Matrix4f viewProjMatrix = new Matrix4f();
     FloatBuffer myFloatBuffer = BufferUtils.createFloatBuffer(OGL_MATRIX_SIZE);
@@ -45,6 +47,7 @@ public class Driver {
     public static void main(String[] myArgs) {
         new Driver().render();
     } // public static void main(String[] args)
+
     void render() {
         try {
             initGLFWindow();
@@ -57,6 +60,7 @@ public class Driver {
             glfwSetErrorCallback(null).free();
         }
     } // void render()
+
     private void initGLFWindow() {
         glfwSetErrorCallback(errorCallback =
                 GLFWErrorCallback.createPrint(System.err));
@@ -77,6 +81,7 @@ public class Driver {
                     glfwSetWindowShouldClose(window, true);
             }
         });
+
         glfwSetFramebufferSizeCallback(window, fbCallback = new
                 GLFWFramebufferSizeCallback() {
                     @Override
@@ -87,22 +92,25 @@ public class Driver {
                         }
                     }
                 });
+
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(window, WIN_POS_X, WIN_POX_Y);
         glfwMakeContextCurrent(window);
         glfwSwapInterval(VSYNC_INTERVAL);
         glfwShowWindow(window);
     } // private void initGLFWindow()
+
     void renderLoop() {
         initOpenGL();
         renderObjects();
     } // void renderLoop()
+
     void initOpenGL() {
         GL.createCapabilities();
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
-        glClearColor(0.043f, 0.380f, 0.588f, 1.0f);
+        glClearColor(0.043f, 0.380f, 0.588f, 1.0f); // backround color
         this.shader_program = glCreateProgram();
         int vs = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vs,
@@ -124,9 +132,21 @@ public class Driver {
         glUseProgram(shader_program);
         vpMatLocation = glGetUniformLocation(shader_program, "viewProjMatrix");
     } // void initOpenGL()
+
+    // Create a square *centered* at the origin (0,0)
+    private float[] createCenteredSquare(float side) {
+        float half = side / 2f;
+        return new float[]{
+                -half, -half,   // bottom-left
+                half, -half,   // bottom-right
+                half,  half,   // top-right
+                -half,  half    // top-left
+        };
+    }
+
     void renderObjects() {
         int vbo = glGenBuffers();
-        int ibo = glGenBuffers();
+        int ibo = glGenBuffers();// both variables are buffers
 
         final float RECT_WIDTH = 26.66f;   // full width of rectangle
         final float RECT_HEIGHT = 40f;     // full height of rectangle
@@ -162,6 +182,7 @@ public class Driver {
                 viewProjMatrix.get(myFloatBuffer));
         glUniform3f(renderColorLocation, 1.0f, 0.498f, 0.153f);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
         int VTD = 6; // need to process 6 Vertices To Draw 2 triangles
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
