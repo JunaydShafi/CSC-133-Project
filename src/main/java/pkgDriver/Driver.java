@@ -21,8 +21,8 @@ public class Driver {
     long window;
 
     // window
-    private static  int WIN_WIDTH = 1800;// replacing the random number struct for vertecies and indexs
-    private static  int WIN_HEIGHT = 1200;
+    private static  int WIN_WIDTH = 1000;// replacing the random number struct for vertecies and indexs
+    private static  int WIN_HEIGHT = 800;
     private static final int WIN_POS_X = 30;
     private static final int WIN_POX_Y = 90;
 
@@ -35,6 +35,11 @@ public class Driver {
     private static final float ORTHO_TOP = 100f;
     private static final float ORTHO_NEAR = 0f;
     private static final float ORTHO_FAR = 10f;
+
+    // color (green)
+    private static final float[] SQUARE_COLOR = {0.5f, 1.0f, 0.0f};
+    // background
+    private static final float[] CLEAR_COLOR = {0.043f, 0.380f, 0.588f, 1.0f};
 
     private static final int OGL_MATRIX_SIZE = 16;
     // call glCreateProgram() here - we have no gl-context here
@@ -110,28 +115,40 @@ public class Driver {
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
-        glClearColor(0.043f, 0.380f, 0.588f, 1.0f); // backround color
-        this.shader_program = glCreateProgram();
+        glClearColor(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]);
+
+        // shader using built-ins
+        shader_program = glCreateProgram();
+
         int vs = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vs,
                 "uniform mat4 viewProjMatrix;" +
                         "void main(void) {" +
-                        " gl_Position = viewProjMatrix * gl_Vertex;" +
+                        "  gl_Position = viewProjMatrix * gl_Vertex;" +
                         "}");
         glCompileShader(vs);
         glAttachShader(shader_program, vs);
+
         int fs = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fs,
                 "uniform vec3 color;" +
                         "void main(void) {" +
-                        " gl_FragColor = vec4(0.5f, 1.0f, 0.0f, 1.0f);" +
+                        "  gl_FragColor = vec4(0.5f, 1.0f, 0.0f, 1.0f);" +
                         "}");
         glCompileShader(fs);
         glAttachShader(shader_program, fs);
+
         glLinkProgram(shader_program);
         glUseProgram(shader_program);
+
         vpMatLocation = glGetUniformLocation(shader_program, "viewProjMatrix");
-    } // void initOpenGL()
+        renderColorLocation = glGetUniformLocation(shader_program, "color");
+
+        // set projection once
+        viewProjMatrix.setOrtho(ORTHO_LEFT, ORTHO_RIGHT, ORTHO_BOTTOM, ORTHO_TOP, ORTHO_NEAR, ORTHO_FAR);
+        glUniformMatrix4fv(vpMatLocation, false, viewProjMatrix.get(myFloatBuffer));
+    }
+
 
     // Create a square *centered* at the origin (0,0)
     private float[] createCenteredSquare(float side) {
@@ -148,7 +165,7 @@ public class Driver {
         int vbo = glGenBuffers();
         int ibo = glGenBuffers();// both variables are buffers
 
-        final float RECT_WIDTH = 26.66f;   // full width of rectangle
+        final float RECT_WIDTH = 40f;   // full width of rectangle
         final float RECT_HEIGHT = 40f;     // full height of rectangle
         final int NUM_TRIANGLES = 2;       // 2 triangles form rectangle
         final int VERTICES_PER_TRIANGLE = 3;
